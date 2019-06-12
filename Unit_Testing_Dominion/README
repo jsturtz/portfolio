@@ -1,3 +1,6 @@
+I added files to unit test specific functions within the provided implementation of dominion. These tests include 
+ explicit input partitions to get 100% branch coverage as well as random tests. 
+
 To execute all input-partitioned unit tests, execute 
     $ make unittestresults
 And then inspect the contents of unittestresults.out
