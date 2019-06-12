@@ -1,4 +1,4 @@
-# portfolioOfProjects
+# portfolio
 Each immediate directory holds the distinct code for one of my projects accomplished over my career. Most of these projects are written in C/C++. 
 
 Only one project is in Python (Learn_Selenium_Python), a few are in Microsoft Macro Assembler (see MASM_Assembly_Programs), and several use outside frameworks like OpenCL/OpenGL. 
