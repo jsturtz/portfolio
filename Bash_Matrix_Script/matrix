@@ -1,0 +1,238 @@
+#!/bin/bash
+
+# displays #rows #cols of matrix file
+dims() {
+  # iterate over lines to get num rows
+  local i=0
+  while read line ; do
+    ((i++))
+  done < $1
+  local rows=$i
+
+  # iterate over firstline to get num cols
+  local i=0
+  read -r firstline<"$1"
+  for char in $firstline ; do
+    ((i++))
+  done
+  local cols=$i
+  
+  echo -e "$rows $cols"
+  exit 0
+}
+
+# transposes matrix so that rows and cols switch directions
+transpose() {
+  local i=1
+  read -r firstline<"$1"
+  for char in $firstline ; do
+    cut -f$i $1 | paste -s
+    ((i++))
+  done
+}
+
+# calculates the mean of the columns as a new row
+mean() {
+  local tempfile="temp$$"; touch $tempfile
+  local tempmeanfile="mean$$"; touch $tempmeanfile
+  
+  # cuts col by col to take average
+  local i=1
+  read -r firstline<$1
+  for num in $firstline ; do
+    cat $1 | cut -f $i > $tempfile
+    
+    # find mean of column and add to $tempmeanfile
+    sum=0     
+    count=0
+    while read line ; do
+      sum=$(expr $line + $sum)
+      ((count++))
+    done < $tempfile
+     
+    # calculate mean using provided formula
+    mean="$(( ($sum + ($count / 2) * ( ($sum>0) * 2 - 1)) / $count ))"
+    echo -e $mean >> $tempmeanfile
+    ((i++))
+  done
+
+  # tranpose to display in one row rather than one col
+  transpose $tempmeanfile
+  
+  # clean up files
+  rm $tempfile
+  rm $tempmeanfile
+}
+
+add() {
+  # check that dimensions for both are identical
+  dims1=$(dims $1)
+  dims2=$(dims $2)
+  
+  if [ ! "$dims1" = "$dims2" ]; then
+    echo -e "ERROR: $1 does not have same dimensions as $2" 1>&2
+    exit 5
+  fi
+  
+  # get row and column numbers from dimensions
+  row=$(echo $dims1 | cut -d ' ' -f 1)
+  col=$(echo $dims1 | cut -d ' ' -f 2)
+  
+  # loop through rows of both files by index i
+  i=1
+  while [ "$i" -le "$row" ]; do
+
+    j=1
+    newstring=""                        # build up string within loop, then echo
+    line1=$(head -n $i $1 | tail -n 1)  # iterate line by line through files
+    line2=$(head -n $i $2 | tail -n 1)
+    
+    # loop through columns of both files by index j
+    while [ "$j" -le "$col" ]; do
+      
+      # cut out values at $j from both lines
+      val1=$(echo -e "$line1" | cut -f $j)
+      val2=$(echo -e "$line2" | cut -f $j)
+      
+      # build up string sum by sum
+      newstring+=$(expr $val1 + $val2)
+
+      if [ ! "$j" = "$col" ]; then
+        newstring+="\t"
+      fi
+      ((j++))
+    done
+
+    # echo line by line
+    echo -e "$newstring"
+    ((i++))
+  done
+}
+
+multiply() {
+
+  # get dimensions
+  dims1=$(dims $1)
+  dims2=$(dims $2)
+
+  # the multiplication is valid only if the col of m1 = row of m2
+  col1=$(echo $dims1 | cut -d ' ' -f 2)
+  row2=$(echo $dims2 | cut -d ' ' -f 1)
+
+  if [ ! "$col1" = "$row2" ]; then
+    echo -e "Invalid matrices. # columns of first matrix must equal # rows of second matrix" 1>&2
+    exit 6
+  fi
+
+  # dimensions of product equal the row of m1 X col of m2
+  row1=$(echo $dims1 | cut -d ' ' -f 1)
+  col2=$(echo $dims2 | cut -d ' ' -f 2)
+
+  # iterate through first matrix line by line
+  while read line; do
+    
+    local line1="line1$$"       # temp files use to store
+    local line2="line2$$"       # lines for calculations
+    newrow=""                   # build up string for echo
+
+    # use row from m1 as line1 for calculation
+    echo -e "$line" > $line1
+
+    j=1                         
+    while [ "$j" -le "$col2" ]; do
+
+      # use col from m2 as line2 for calculation
+      cut $2 -f $j | $0 transpose > $line2
+
+      # perform pair-wise multiplication and add to sum
+      sum=0
+
+      k=1
+      while [ "$k" -le "$col1" ]; do
+        val1=$(cut $line1 -f $k)
+        val2=$(cut $line2 -f $k)
+        sum=$(expr $sum + $val1 \* $val2)
+        ((k++))
+      done
+      
+      # build up newrow string by adding sums and \t
+      newrow+=$sum
+      if [ "$j" -ne "$col2" ]; then
+        newrow+="\t"
+      fi
+      ((j++))
+    done
+
+    # echo one row at a time
+    echo -e "$newrow"
+  done < $1
+
+  # clean up
+  rm $line1
+  rm $line2
+}
+
+# Main Code
+
+# ensures at least one argument
+if [ "$#" = "0" ]; then
+  echo "ERROR: No argument supplied" 1>&2
+  exit 1
+fi
+
+# check for those commands that require one argument (or stdin)
+if [ "$1" = "dims" ] || [ "$1" = "transpose" ] || [ "$1" = "mean" ]; then
+  
+  # check number of arguments
+  filename="file$$"
+  if [ "$#" -gt "2" ]; then
+    echo -e "ERROR: Too many arguments for $1" 1>&2
+    exit 1
+  fi
+
+  # get second argument from stdin if not provided
+  if [ "$#" = "1" ]; then
+    filename="file$$"
+    cat > $filename
+  else
+    filename=$2
+  fi
+
+  # check filename is readable
+  if [ ! -r $filename ]; then
+    echo -e "ERROR: File named '$filename' is not readable" 1>&2
+    exit 2
+  fi
+  
+  # call function with argument
+  $1 $filename
+  
+  # delete file only if created from stdin
+  if [ "$filename" = "file$$" ]; then
+    rm $filename
+  fi 
+
+  exit 0
+
+# check for those commands that require two arguments
+elif [ "$1" = "add" ] || [ "$1" = "multiply" ]; then
+  
+  # check arguments
+  if [ ! "$#" = "3" ]; then
+    echo -e "ERROR: $1 takes two arguments" 1>&2
+    exit 1
+  fi
+  
+  # check that they are readable
+  if [ ! -r $2 ] || [ ! -r $3 ]; then
+    echo -e "ERROR: One of the two files is not readable" 1>&2
+    exit 2
+  fi
+  
+  # call function with arguments
+  $1 $2 $3 
+  exit 0
+else 
+  echo "ERROR: Not a valid command" 1>&2
+  exit 1
+fi

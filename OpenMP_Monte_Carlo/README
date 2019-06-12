@@ -1,0 +1,2 @@
+This program performs a Monte Carlo simulation using openMP to utilize multi-threading and a reduction to speed
+execution. Check out writeup.pdf to see an analysis of the results. 

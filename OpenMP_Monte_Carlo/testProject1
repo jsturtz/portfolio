@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo -e "Threads \t N \t Performance"
+
+i=1
+
+while [ "$i" -le "8" ]; do
+  
+  j=0
+  size=1000
+  while [ "$j" -lt "10" ]; do
+    
+    g++ project1.cpp -lm -fopenmp -DNUMT=$i -DNUMTRIALS=$size
+    ./a.out
+
+    size=$(expr $size \* 2)
+    ((j++))
+  done
+  ((i++))
+done

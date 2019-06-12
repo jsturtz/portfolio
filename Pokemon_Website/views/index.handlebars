@@ -1,0 +1,75 @@
+<!-- code for body goes here -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3> Description </h3>
+      <span> This website represents a joint project between Austin Henry
+      and Jordan Sturtz to represent a pokedex database interface. It
+      has basic CRUD functionality. The subpages are as follows:</span> <br>
+      <ul class="list-group">
+        <li class="list-group-item"> 
+          <a href="/create"><strong>Create</strong></a> <br>
+          This link provides the user with the ability to add new entries to 
+          the database. There are four entities that can be added: pokemon, 
+          types, moves, and locations. Since pokemon must be associated
+          with these other three entities, you should first add any 
+          Types, Moves, or Locations associated with a new Pokemon that 
+          you wish to add. The assignment specification requires that 
+          our website be designed so that it is possible to insert into
+          every table individually. Our website accomplishes this on the
+          /Create subpage. </br>
+
+          Under the Types button, the user can insert a new Type into the
+          Types table and they can also insert a new entry in the 
+          Types_Strength table. Under the Moves button, the user can
+          insert a new move into the Moves table. Under the 
+          Locations button, the user can insert a new location
+          into the Locations table.
+          Finally, under the Pokemon button,
+          the user can insert new Pokemon into the
+          Pokemon table along with the 
+          relations between this new pokemon and the other three 
+          entities. The user can choose to associate the pokemon
+          with up to four Moves along with the levels at which
+          the pokemon learns those moves (i.e. insert into
+          Pokemon_Moves), up to two Types (i.e. insert into
+          Pokemon_Types), and
+          as many Locations as the user desires (i.e. insert into
+          Pokemon_Locations). Finally, the user can also add 
+          evolutions between this new Pokemon and other pokemons,
+          which inserts into Evolutions.
+
+        </li>
+        <li class="list-group-item"> 
+          <a href="/read"><strong>Read</strong></a> <br>
+          This link provides the user with the ability to read the existing
+          data in the database. It will display them according to entity
+          type: pokemon, type, moves, and location. In addition, it will
+          display pokemon together with their types, their moves, and the
+          locations in which they can be found. The Pokemon sub-page allows
+          users to sort Pokemon by name or stats in ascending or descending
+          order.
+        </li>
+        <li class="list-group-item"> 
+          <a href="/update"><strong>Update</strong></a> <br>
+          This link provides the user with the ability to update existing
+          entries. As of right now, the update functionality is limited.
+          The attributes of any of the four entities can be updated.
+          The only relation that can be updated as of right now is the
+          evolutions found on the Pokemon subpage. This evolutions
+          update will perform UPDATE, INSERT, or DELETE depending on
+          how the users select the dropdown boxes for evolutions for
+          a given pokemon. 
+        </li>
+        <li class="list-group-item"> 
+          <a href="/delete"><strong>Delete</strong></a> <br>
+          This link provides the user with the ability to delete
+          entries. As of right now, the delete functionality is limited.
+          It only permits users to delete any existing entities, which will
+          cascade automatically to entries in other tables with foreign
+          key references to that entity. 
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

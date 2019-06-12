@@ -1,0 +1,5 @@
+To run tests on arrayMult.cpp, execute runArrayMult and then inspect outfile1.txt
+To run tests on reduction.cpp, execute runReduction and then inspect reduction.txt
+
+The purpose of this program is to use openCL to execute an array multiplcation and 
+array multiplication + reduction on the GPU.

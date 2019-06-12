@@ -1,0 +1,23 @@
+The purpose of this exercise is to create interprocess communication through a clients and servers. 
+This set of programs performs encoding and decoding of plaintext files through one-time-pad encryption.
+
+execute compileall to compile executables
+
+There are five programs: 
+    (1) keygen:    responsible for generating a new key that can be used in encoding/decoding. Keygen takes
+                   one argument: keygen <N>. It prints to stdout a randomly generate string of length
+                   N. The idea is to use keygen and redirect stdout to a filename to store the key.
+    (2) otp_enc_d: A server that must be run in the background. Takes only one argument: a port number to serve
+                   requests from client. This program is responsible for handling requests from otp_enc
+                   to encode plaintext using a provided key. 
+    (3) otp_enc:   A client that sends a request to otp_enc_d to encode plaintext using a key. For one time 
+                   pad encoding, key must be longer than plaintext. otp_enc takes three arguments: (1)
+                   the port number on which otp_enc_d is serving, (2) the name of the file holding the 
+                   text to be encoded, and (3) the name of the file holding the key for encoding
+    (4) otp_dec_d: A server that must be run in the background. Takes only one argument: a port number to
+                   serve requests from client. This program is responsible for handling requests from 
+                   otp_dec to decode plaintext using a provided key.
+    (5) otp_dec:   A client that sends a request to otp_dec_d to decode plaintext using a key. For one time 
+                   pad encoding, key must be longer than plaintext. otp_dec takes three arguments: (1)
+                   the port number on which otp_dec_d is serving, (2) the name of the file holding the 
+                   text to be decoded, and (3) the name of the file holding the key for decoding

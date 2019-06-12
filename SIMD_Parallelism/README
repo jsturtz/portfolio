@@ -1,0 +1,8 @@
+To execute, run make
+To execute multiple times with different values, execute runTests.sh
+
+The purpose of this program is to execute the same vectorized array multiplication and reduction by using
+both SIMD (Single Instruction, Multiple Data) and non-SIMD parallelism. This form of parallelism is made
+possible by explicit assembly instructions written in simd.p4.c.
+
+See writeup.pdf for an analysis of the data. 

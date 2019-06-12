@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo -e "NumElems\tLocalSize\tNumWorkGroups\tArrayMult MMS\tArrayMultAdd MMS\n"
+NUM_ELEMENTS=1024
+LOCAL_SIZE=8
+
+# must double 13 times to exceed 8 million for NUM_ELEMENTS
+for x in {1..14}
+do
+    # must double 6 times to reach 512 for LOCAL_SIZE
+    for y in {1..7}
+    do
+        g++ -o clArrayMult clArrayMult.cpp -w -framework OpenCL -DNUM_ELEMENTS=$NUM_ELEMENTS -DLOCAL_SIZE=$LOCAL_SIZE
+        ./clArrayMult >> 'outfile.txt'
+        LOCAL_SIZE=$(expr $LOCAL_SIZE \* 2)
+    done
+
+    NUM_ELEMENTS=$(expr $NUM_ELEMENTS \* 2)
+    LOCAL_SIZE=8
+done

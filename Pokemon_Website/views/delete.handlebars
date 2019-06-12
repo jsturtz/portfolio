@@ -1,0 +1,241 @@
+<!-- controls which add form to use-->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary" id="btn-poke"> Pokemon </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-type"> Types </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-move"> Moves </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-location"> Locations </button>
+    </div>
+  </div>
+</div>
+
+<form>
+<!-- html for each pokemon looks like this -->
+<div id="container-poke" class="container poke-list change-form">
+
+  <!-- options to delete a pokemon -->
+  <div class="row">
+    <div class="col-sm-12">
+      Delete a Pokemon: 
+      <select id="deletePokeDrop" name="category">
+       <option class="dropdown-item" value=""> None </option>
+       {{#each pokemon}}
+       <option class="dropdown-item" value = "{{this.name}}"> {{this.name}} </option>
+       {{/each}} 
+      </select> 
+        <button id="deletePoke" class="btn btn-primary">Delete</button>
+    </div>
+  </div>
+  
+  {{#each pokemon}}
+  <div class="row striped">
+    <div class="col-sm-12">
+      <span class="poke-header"> 
+        <strong>{{this.name}}</strong> 
+        {{#if this.description}}
+          - {{this.description}}
+        {{/if}}
+      </span>
+    </div>
+    <div class="col-sm-6">
+      <span class="poke-header"> Evolutions </span>
+      <ul>
+        <li> 
+          {{#if this.evolves_from}}
+          Evolves from <em> {{this.evolves_from.name}}</em>
+          {{else}}
+            No evolution from another Pokemon
+          {{/if}} </br>
+        </li>
+        <li>
+          {{#if this.evolves_to}}
+          Evolves to <em>{{this.evolves_to.name}}</em>
+          {{else}}
+            Does not evolve to another Pokemon
+          {{/if}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm-6">
+      <span class="poke-header"> Types </span>
+      <ul>
+          {{#each this.types}}
+          <li> <em> {{this}}</em> </li>
+          {{else}}
+
+          <li> <em> No types</em> </li>
+          {{/each}} 
+      </ul>
+    </div>
+
+    <!-- Statistics and Evolutions here-->
+    <div class="col-sm-4">
+      <span class="poke-header"> Statistics </span>
+      <ul>
+        <li> Attack: {{this.attack}}</li>
+        <li> Defense: {{this.defense}}</li>
+        <li> Health: {{this.health}}</li>
+        <li> Speed: {{this.speed}}</li>
+      </ul>
+    </div>
+
+
+    <!-- Moves go here-->
+    <div class="col-sm-4">
+      <span class="poke-header"> Moves </span>
+      <ul>
+        {{#each moves}}
+        <li> <em> {{this.name}} -- {{this.level}}</em> </li>
+        {{else}}
+        <li> <em> No Moves </em> </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <!-- Locations go here-->
+    <div class="col-sm-4">
+      <span class="poke-header"> Locations </span>
+      <ul>
+        {{#each locations}}
+        <li> <em> {{this}} </em> </li>
+        {{else}}
+        <li> <em> Not found in any location </em> </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  {{/each}}
+</div>
+  
+<!-- Type information here -->
+<div id="container-type" class="container change-form"style="display:none;">
+
+<!-- options to delete a type -->
+     <div class="row">
+       <div class="col-sm-12">
+        Delete a Type:
+        <select id="deleteTypeDrop" name="category">
+         <option class="dropdown-item" value=""> None </option>
+         {{#each types}}
+         <option class="dropdown-item" value = "{{this.name}}"> {{this.name}} </option>
+         {{/each}}
+         </select>
+         <button id="deleteType" class="btn btn-primary">Delete</button>
+
+       </div>
+      </div>
+
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Weak Against</th>
+        <th scope="col">Strong Against</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each typeRelations}}
+      <tr value="{{this.id}}">
+        <td> {{this.name}} </td>
+        <td> 
+          <ul>
+          {{#each weak_against}}
+          <li value="{{this.id}}"> {{this.name}}</li>
+          {{/each}}
+          </ul>
+        </td>
+        <td> 
+          <ul>
+          {{#each strong_against}}
+          <li value="{{this.id}}"> {{this.name}}</li>
+          {{/each}}
+          </ul>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<!-- Move information here -->
+<div id="container-move" class="container change-form" style="display:none;">
+ 
+<!-- options to delete a move -->
+     <div class="row">
+       <div class="col-sm-12">
+        Delete a Move:
+        <select id="deleteMoveDrop" name="category">
+         <option class="dropdown-item" value=""> None </option>
+         {{#each moves}}
+         <option class="dropdown-item" value = "{{this.name}}"> {{this.name}} </option>
+       {{/each}}
+      </select>
+      <button id="deleteMove" class="btn btn-primary">Delete</button>
+    </div>
+  </div>
+
+
+ <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Status Effect</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each moves}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.status_effect}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<!-- Location information here -->
+<div id="container-location" class="container change-form" style="display:none;">
+  
+<!-- options to delete a location -->
+     <div class="row">
+       <div class="col-sm-12">
+        Delete a Location:
+        <select id="deleteLocationDrop" name="category">
+         <option class="dropdown-item" value=""> None </option>
+         {{#each locations}}
+         <option class="dropdown-item" value = "{{this.name}}"> {{this.name}} </option>
+       {{/each}}
+      </select>
+      <button id="deleteLocation" class="btn btn-primary">Delete</button>
+    </div>
+  </div>
+
+ 
+ <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each locations}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.description}} </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</form>
+<script src="js/delete.js"></script>

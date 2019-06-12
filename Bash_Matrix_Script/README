@@ -1,0 +1,22 @@
+The bash shell script "matrix" performs basic matrix computations. 
+
+Usage:
+    matrix dims [MATRIX]
+    matrix transpose [MATRIX]
+    matrix mean [MATRIX]
+    matrix add MATRIX_LEFT MATRIX_RIGHT
+    matrix multiply MATRIX_LEFT MATRIX_RIGHT
+
+Input for matrices represent filenames. Will output to stdout. 
+
+Description of Commands:
+dims 
+    prints dimensions of the matrix as the number of rows in <rows> <cols> formate
+transpose
+    reflects elements of matrix along main diagonal
+mean
+    takes MxN matrix and returns 1xN row vector
+add
+    adds two matrices pairwise
+multiply
+    multiplies two matrices

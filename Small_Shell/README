@@ -1,0 +1,18 @@
+To compile, invoke make:
+$ make
+
+To run, 
+$ ./smallsh
+
+The executable smallsh is a shell environment. smallsh handles a few pre-defined user commands (exit, cd, 
+and status), but otherwise uses fork, exec, and wait/waidpid to create new child processes that ask the 
+OS to execute other commands. The shell supports I/O redirection as well as backgrounding and 
+foregrounding commands. 
+
+The general syntax follows BASH syntax:
+    command [arg1 arg2 ...] [< input_file] [> output_file] [&]
+
+Built-in Commands:
+    exit - will exit shell
+    status - prints either exit status or terminating signal of last foregrounded process
+    cd [path] - change working directory to path

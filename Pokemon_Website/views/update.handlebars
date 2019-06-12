@@ -1,0 +1,265 @@
+<!-- controls which add form to use-->
+<div class="container"> <div class="row">
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary" id="btn-poke"> Pokemon </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-type"> Types </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-move"> Moves </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-location"> Locations </button>
+    </div>
+  </div>
+</div>
+
+<form>
+<!-- html for each pokemon looks like this -->
+<div id="container-poke" class="container poke-list change-form">
+
+  <div class="row">
+    <div class="col-sm-12">
+      Chooose Pokemon to Change: 
+      <select id="poke-id"> 
+        <option selected value=""> None </option>
+        {{#each pokemon}}
+        <option value="{{this.id}}"> {{this.name}} </option>
+        {{/each}}
+      <select/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3> Stats </h3>
+      <div class="form-group">
+        <label for="poke-name"> Name </label>
+        <input class="form-control" id="poke-name" placeholder="Charizard">
+        <label for="poke-health"> Health </label>
+        <input class="form-control" id="poke-health" type="number" placeholder="100">
+        <label for="poke-attack"> Attack </label>
+        <input class="form-control" id="poke-attack" type="number"  placeholder="20">
+        <label for="poke-defense"> Defense </label>
+        <input class="form-control" id="poke-defense" type="number"  placeholder="15">
+        <label for="poke-speed"> Speed </label>
+        <input class="form-control" id="poke-speed" type="number"  placeholder="30">
+        <label for="poke-description"> Description </label>
+        <textarea id="poke-description" class="form-control" style='min-width:100%'> </textarea> 
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td> Evolves From: </td>
+            <td>
+              <select id="evolves-from"> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each pokemon}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+             </select> </br>
+            </td>
+          </tr>
+          <tr>
+            <td> Evolves To: </td>
+            <td>
+              <select id="evolves-to"> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each pokemon}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select> </br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-success"> Submit </button> 
+    </div>
+  </div>
+
+</div>
+
+<!-- Type information here -->
+<div id="container-type" class="container change-form"style="display:none;">
+
+  <div class="row">
+    <div class="col-sm-12">
+      Chooose Type to Change: 
+      <select id="type-id"> 
+        {{#each types}}
+        <option value="{{this.id}}"> {{this.name}} </option>
+        {{/each}}
+      <select/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h3> Update Name </h3>
+      <div class="form-group">
+        <input id="type-name" class="form-control" placeholder="">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-success"> Change Name </button> 
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Weak Against</th>
+            <th scope="col">Strong Against</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each typeRelations}}
+          <tr value="{{this.id}}">
+            <td> {{this.name}} </td>
+            <td> 
+              <ul>
+              {{#each weak_against}}
+              <li value="{{this.id}}"> {{this.name}}</li>
+              {{/each}}
+              </ul>
+            </td>
+            <td> 
+              <ul>
+              {{#each strong_against}}
+              <li value="{{this.id}}"> {{this.name}}</li>
+              {{/each}}
+              </ul>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Move information here -->
+<div id="container-move" class="container change-form" style="display:none;">
+  <div class="row">
+    <div class="col-sm-12">
+      Choose Move to Update: 
+      <select id="move-id"> 
+        <option value="null"> None </option>
+        {{#each moves}}
+        <option value="{{this.id}}"> {{this.name}} </option>
+        {{/each}}
+      <select/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <h3> Name </h3>
+      <div class="form-group">
+        <input id="move-name" class="form-control" placeholder="">
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <h3> Status Effect </h3>
+      <div class="form-group">
+        <input id="move-status" class="form-control" placeholder="">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <button class="btn btn-success"> Submit </button> 
+  </div>
+
+  <div class="row">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Status Effect</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each moves}}
+        <tr value="{{this.id}}">
+          <td>{{this.name}}</td>
+          <td>{{this.status_effect}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Location information here -->
+<div id="container-location" class="container change-form" style="display:none;">
+  <div class="row">
+    <div class="col-sm-12">
+      Choose City to Change: 
+      <select id="location-id"> 
+        <option value="null"> None </option>
+        {{#each locations}}
+        <option value="{{this.id}}"> {{this.name}} </option>
+        {{/each}}
+      <select/>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-3">
+      <h3> Name </h3>
+      <div class="form-group">
+        <input id="location-name" class="form-control" placeholder="incinerate">
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <h3> Description </h3>
+      <div class="form-group">
+        <textarea id="location-description" class="form-control" style='min-width:100%'></textarea> 
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <button class="btn btn-success"> Submit Change </button> 
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each locations}}
+          <tr value="{{this.id}}">
+            <td>{{this.name}}</td>
+            <td>{{this.description}} </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</form>
+<div id="data" style="display:none;"> {{{json @root}}} </div>
+
+<script src="js/update.js"></script>

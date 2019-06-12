@@ -1,0 +1,7 @@
+The purpose of this simulation is to use openMP to delegate tasks to thread according to their functionality,
+rather than data processing. This is a mere convenience, since each thread can run "concurrently" operating
+only on its own functional role. 
+
+The program simuluates changes in an ecosystem and then reports those changes for purpose of analysis. 
+
+

@@ -1,0 +1,10 @@
+To execute, must have openMP supported
+
+The purpose of this project is to compute the volume between two bezier surfaces using openMP with 
+different sizes for number of threads and number of nodes to inspect the performance gains as
+these quantities vary. See writeup.pdf for an analysis of the results. 
+
+Run testProject2 to compile to see results from running experiment with different values for
+number of threads and number of nodes. 
+
+

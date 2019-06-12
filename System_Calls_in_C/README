@@ -1,0 +1,15 @@
+This assignment is a toy exercise meant to demonstrate proficiency in C system calls and multi-threading using
+the C-89 standard.
+
+First, execute make, which will compile both sturtzj.buildrooms.c and sturtzj.adventure.c producing
+the executables buildrooms and adventure. Make will also run buildrooms to produce a directory named
+sturtzj.rooms.XXXX. Execute adventure to play the game. 
+
+sturtzj.buildroom.c - The purpose of this C program is to use system calls to create the necessary directory
+structure required for sturtzj.adventure.c. The files within this directory will be the name of different
+rooms, each with file contents indicating the name of the room, the connections to other rooms, and an 
+idenfifer indicating whether this room is the start room, middle room, or end room.
+
+sturtzj.adventure.c - The purpose of this program is to provide a CLI for a user to play a game: the user
+begins at the start room, and is then prompted to navigate to any nearby connected room. The file uses 
+a system call to change directory, file I/O, and multi-threading with mutex locks. 

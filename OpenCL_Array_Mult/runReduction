@@ -1,0 +1,24 @@
+#!/bin/bash
+NUM_ELEMENTS=1024
+LOCAL_SIZE=32
+FILE_NAME='reduction.txt'
+> $FILE_NAME # clear contents
+
+
+# must double 13 times to exceed 8 million for NUM_ELEMENTS
+for x in {1..14}
+do
+    echo -e -n "$NUM_ELEMENTS\t" >> $FILE_NAME
+    # must double 3 times to reach 256 for LOCAL_SIZE
+    for y in {1..4}
+    do
+        g++ -o reduction reduction.cpp -w -framework OpenCL -DNUM_ELEMENTS=$NUM_ELEMENTS -DLOCAL_SIZE=$LOCAL_SIZE
+        ./reduction >> $FILE_NAME
+        echo -n -e "\t" >> $FILE_NAME
+        LOCAL_SIZE=$(expr $LOCAL_SIZE \* 2)
+    done
+
+    echo >> $FILE_NAME
+    NUM_ELEMENTS=$(expr $NUM_ELEMENTS \* 2)
+    LOCAL_SIZE=8
+done

@@ -1,0 +1,322 @@
+<!-- controls which add form to use-->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary" id="btn-poke"> Pokemon </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-type"> Types </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-move"> Moves </button>
+    </div>
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-secondary"id="btn-location"> Locations </button>
+    </div>
+  </div>
+</div>
+
+<!-- form for changing pokemon -->
+<div id="container-poke" class="container add-form">
+  <div class="row">
+    <!-- Stats specific fo pokemon here -->
+    <div class="col-sm-6">
+      <h3> Stats </h3>
+      <div class="form-group">
+        <label for="inp-name"> Name </label>
+        <input class="form-control" id="inp-name" placeholder="Charizard">
+        <label for="inp-health"> Health </label>
+        <input class="form-control" id="inp-health" type="number"  placeholder="100">
+        <label for="inp-attack"> Attack </label>
+        <input class="form-control" id="inp-attack" type="number"  placeholder="20">
+        <label for="inp-defense"> Defense </label>
+        <input class="form-control" id="inp-defense" type="number"  placeholder="15">
+        <label for="inp-speed"> Speed </label>
+        <input class="form-control" id="inp-speed" type="number"  placeholder="30">
+      </div>
+    </div>
+
+    <!-- Choose Moves here-->
+    <div class="col-sm-6">
+      <h3> Moves: </h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> Lvl </th>
+            <th scope="col"> Name </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="move-row">
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="number"  placeholder="10">
+              </div>
+            </td>
+            <td>
+              <select> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each moves}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select>
+            </td>
+          </tr>
+          <tr class="move-row">
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="number" placeholder="10">
+              </div>
+            </td>
+            <td>
+              <select> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each moves}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select>
+            </td>
+          </tr>
+          <tr class="move-row">
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="number"  placeholder="10">
+              </div>
+            </td>
+            <td>
+              <select> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each moves}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select>
+            </td>
+          </tr>
+          <tr class="move-row">
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="number" placeholder="10">
+              </div>
+            </td>
+            <td>
+              <select> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each moves}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  
+  <div class="row">
+    <!-- Choose Types here-->
+    <div class="col">
+      <h3> Types</h3>
+      <select id="type1"> 
+        <option class="dropdown-item" value=""> None </option>
+        {{#each types}}
+        <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+        {{/each}}
+      </select>
+      <select id="type2"> 
+        <option class="dropdown-item" value=""> None </option>
+        {{#each types}}
+        <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+        {{/each}}
+      </select>
+    </div>
+    <!-- Evolutions -->
+    <div class="col-sm-6">
+      <h3> Evolutions </h3>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td> Evolves From: </td>
+            <td>
+              <select id="evolves_from"> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each pokemon}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select> </br>
+            </td>
+          </tr>
+          <tr>
+            <td> Evolves To: </td>
+            <td>
+              <select id="evolves_to"> 
+                <option class="dropdown-item" value=""> None </option>
+                {{#each hasToEvos}}
+                <option class="dropdown-item" value = "{{this.id}}"> {{this.name}} </option>
+                {{/each}}
+              </select> </br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Choose locations here-->
+    <div class="col-sm-4">
+      <h3> Locations</h3>
+      {{#each locations}}
+      <div class="form-check">
+        <label class="form-check-label"> 
+          <input class="location-field" type="checkbox" value="{{this.id}}"> 
+          {{this.name}}
+        </label>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+
+  <!-- Type description here -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for='poke-description'>Description of the Pokemon:</label>
+        <textarea class="form-control" style='min-width:100%' id='poke-description'></textarea> 
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <div class="row">
+    <div class="col-sm-1">
+      <button type="submit" class="btn btn-success" id='submit-pokemon-btn' >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- form for adding type -->
+<div id="container-type" class="container add-form" style="display:none">
+  
+  <!-- btns control whether adding types or adding relations-->
+  <div class="row">
+    <div class="col-sm-6">
+      <button id="add-types-btn" class="btn btn-primary"> Add Types </button>
+    </div>
+    <div class="col-sm-6">
+      <button id="add-relations-btn" class="btn btn-primary"> Add Relations </button>
+    </div>
+  </div>
+
+  <!-- form for adding types themselves -->
+  <div id="add-type" class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <h3> Name </h3>
+        <div class="form-group">
+          <input id="type-input" class="form-control" placeholder="grass">
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Row and Submit buttons-->
+    <div class="row">
+      <div class="col-sm-2">
+        <button id="submit-type-btn" class="btn btn-success"> Submit </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- form for adding relations for types -->
+  <div id="add-type-relation" class="container" style="display:none;">
+    <div class="row">
+      <div class="col-sm-3">
+        <h3> Type </h3>
+        <select id="type1-relation" name="Name">
+          {{#each types}}
+            <option value="{{this.id}}"> {{this.name}} </option>
+          {{/each}}
+        </select> 
+      </div>
+      <div class="col-sm-3">
+        <h3> Relation </h3>
+        <select id="relation" name="Name">
+          <option value="weak" > is weak against </option>
+          <option value="strong" > strong against </option>
+        </select> 
+      </div>
+
+      <div class="col-sm-3">
+        <h3> Type </h3>
+        <select id="type2-relation" name="Name">
+          {{#each types}}
+          <option value="{{this.id}}" > {{this.name}} </option>
+          {{/each}}
+        </select> 
+      </div>
+    </div>
+
+    <!-- Add Row and Submit buttons-->
+    <div class="row">
+      <div class="col-sm-2">
+        <button id="submit-type-relation-btn" class="btn btn-success"> Submit </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- form for adding move -->
+<div id="container-move" class="container add-form" style="display:none">
+  <div class="row">
+    <div class="col-sm-3">
+      <h3> Name </h3>
+      <div class="form-group">
+        <input id="move-name" class="form-control" placeholder="Burn">
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <h3> Status Effect </h3>
+      <div class="form-group">
+        <input id="move-effect" class="form-control" placeholder="Damage over time">
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Row and Submit buttons -->
+  <div class="row">
+    <div class="col-sm-2">
+      <button id="submit-move-btn" class="btn btn-success"> Submit </button>
+    </div>
+  </div>
+</div>
+
+<!-- form for adding location -->
+<div id="container-location" class="container add-form" style="display:none">
+  <div class="row">
+    <div class="col-sm-3">
+      <h3> Name </h3>
+      <div class="form-group">
+        <input id="location-name" class="form-control" placeholder="Viridian Forest">
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <h3> Description </h3>
+      <div class="form-group">
+        <textarea id="location-description" class="form-control" style='min-width:100%' placeholder="A forest filled with small bugs"></textarea> 
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit buttons -->
+  <div class="row">
+    <div class="col-sm-2">
+      <button id="submit-location-btn" class="btn btn-success"> Submit </button>
+    </div>
+  </div>
+</div>
+
+<!-- js files here -->
+<script src="js/create.js"></script>

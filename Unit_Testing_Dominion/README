@@ -1,0 +1,7 @@
+To execute all input-partitioned unit tests, execute 
+    $ make unittestresults
+And then inspect the contents of unittestresults.out
+
+To execute all random-input unit tests, execute
+    $ make randomtestresults
+And then inspect the contents of randomtestresults.out

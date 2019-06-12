@@ -1,0 +1,36 @@
+{
+    "content": {
+        "titles": [],
+        "grade_levels": {
+            "deficient": "content",
+            "exemplary": "content",
+            "needs_imp": "content",
+            "proficient": "content"
+        }
+
+    },
+    "grammar": {
+        "deficient": "content",
+        "exemplary": "content",
+        "needs_imp": "content",
+        "proficient": "content"
+    },
+    "organization": {
+        "deficient": "content",
+        "exemplary": "content",
+        "needs_imp": "content",
+        "proficient": "content"
+    },
+    "sentence_structure": {
+        "deficient": "content",
+        "exemplary": "content",
+        "needs_imp": "content",
+        "proficient": "content"
+    },
+    "tone": {
+        "deficient": "content",
+        "exemplary": "content",
+        "needs_imp": "content",
+        "proficient": "content"
+    }
+}

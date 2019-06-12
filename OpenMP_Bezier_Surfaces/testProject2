@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo -e "NUMT \t NN \t MH/S \t Volume"
+
+j=0
+size=10
+
+while [ "$j" -lt "10" ]; do
+
+  i=1
+  while [ "$i" -le "8" ]; do
+    g++ project2.cpp -lm -fopenmp -DNUMT=$i -DNUMNODES=$size
+    ./a.out
+    ((i++))
+  done
+
+  size=$(expr $size \* 2)
+  ((j++))
+
+done
+
+
