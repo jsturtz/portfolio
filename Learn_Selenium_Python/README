@@ -1,3 +1,2 @@
-Code base for playing with selenium to build my domain knowledge. The code here is intentionally 
-disorganized and unstructured. A more thorough software engineering process would first begin with proper
-documentation and specification. 
+Code base for learning selenium to build my domain knowledge. I did not spend any time in creating any kind of 
+sensible architecture for the code-base. This is more of an exercise in learning web automation. 
